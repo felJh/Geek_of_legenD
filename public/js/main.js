@@ -1,16 +1,19 @@
-import * as bosses from'./boss.js'
-import * as classes from './perso.js'
+import * as bosses from'./bosses.js'
+import * as classes from './characters.js'
 
 
 
-
-let totalTurnCount = 0;
-let oneTurn = totalTurnCount/4
 
 const launchGame = () => {
+    
+    // GAME TURNS
+    let totalTurnCount = 0
+    let oneTurn = totalTurnCount/2
+
+    //CHARACTERS CHOICE FUNCTION
     const characterChoice= () => {
         let character = prompt('choose a character between mage, archer or warrior')
-        character = character.toLowerCase()
+        characterLow = character.toLowerCase()
         console.log(character)
     }
     characterChoice()
