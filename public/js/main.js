@@ -81,21 +81,6 @@ const launchGame = () => {
         console.table(boss)
     }
     bossRandom(player)
-
-    //GAME  TURN  LOOP 
-    // const turnLoop = () => {
-
-    //     while (boss.hitPoint > 0 || player.hitPoint > 0) {
-    //         const bossTurn = () => {
-    //             console.log('the enemy is about to do something...')
-
-    //         }
-    //     }
-    // }
-    const bossAttack = () => {
-        playerHealth = playerHealth - bossHit
-    }
-    bossAttack()
-    console.table(player)
 }
+
 launchGame()
