@@ -9,15 +9,15 @@ let mage = {
 
 let warrior = {
     name: '',
-    healthPoint: 25,
-    hitPoint: 10,
+    healthPoint: 20,
+    hitPoint: 12,
     ragePoint: 0,
     defense() {},
     attack() {}
 }
 let archer = {
     name: '',
-    healthPoint: 18,
+    healthPoint: 17,
     hitPoint: 6,
     defense() {},
     attack() {}
