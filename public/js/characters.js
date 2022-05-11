@@ -1,6 +1,6 @@
 let mage = {
     name: '',
-    healthPoint: 30,
+    healthPoint: 15,
     hitPoint: 12,
     mana: 7 + 2 * (Math.floor(Math.random() * 3)),
     defense() {},
@@ -9,16 +9,16 @@ let mage = {
 
 let warrior = {
     name: '',
-    healthPoint: 50,
-    hitPoint: 15,
+    healthPoint: 25,
+    hitPoint: 10,
     ragePoint: 0,
     defense() {},
     attack() {}
 }
 let archer = {
     name: '',
-    healthPoint: 35,
-    hitPoint: 15,
+    healthPoint: 18,
+    hitPoint: 6,
     defense() {},
     attack() {}
 }
