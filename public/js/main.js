@@ -1,13 +1,16 @@
 import * as bosses from './bosses.js'
 import * as classes from './characters.js'
+export {
+    launchGame
+}
 
-
-
+let a = 0
 
 const launchGame = () => {
     let player
     let playerHit
     let playerHealth
+    let playerRage
     let boss
     let bossHit
     let bossHealth
@@ -16,12 +19,27 @@ const launchGame = () => {
     let character = prompt('Choose a character between mage, archer or warrior')
     let characterLow = character.toLowerCase()
     characterLow = characterLow.replace(' ', '')
+
     if (characterLow === 'warrior') {
         console.log('Congratualtion ! You are now playing a warrior')
         player = classes.warrior
         playerHealth = classes.warrior.healthPoint
         playerHit = classes.warrior.hitPoint
-
+        playerRage = classes.warrior.ragePoint
+        var playerDefence = () => {
+            playerHealth = playerHealth + bossHit / 2
+        }
+        var playerAttack = () => {
+            bossHealth = bossHealth - playerHit
+            if (turn %8 === 0) {
+                console.log('%c The warrior is now enraged !', 'color: red')
+                playerHit = playerHit * 1.25
+                playerRage = 0 
+            }
+            else {
+                playerRage = playerRage + 1
+            }
+        }
         //name the character
         let name = prompt('enter you\'re character\'s name:')
         classes.warrior.name = name
@@ -31,6 +49,12 @@ const launchGame = () => {
         player = classes.archer
         playerHealth = classes.archer.healthPoint
         playerHit = classes.archer.hitPoint
+        var playerDefence = () => {
+            playerHealth = playerHealth + bossHit / 2
+        }
+        var playerAttack = () => {
+            bossHealth = bossHealth - playerHit
+        }
 
         //name the character
         let name = prompt('enter you\'re character\'s name:')
@@ -41,6 +65,12 @@ const launchGame = () => {
         player = classes.mage
         playerHealth = classes.mage.healthPoint
         playerHit = classes.mage.hitPoint
+        var playerDefence = () => {
+            playerHealth = playerHealth + bossHit / 2
+        }
+        var playerAttack = () => {
+            bossHealth = bossHealth - playerHit
+        }
 
         //name the character
         let name = prompt('enter you\'re character\'s name:')
@@ -48,7 +78,7 @@ const launchGame = () => {
         console.log(`%c Salutations,  ${name}! \n \nYou are a very powerful mage\n`, 'color: green;')
     }
     else {
-        console.log('Please choose between \'warrior\', \'mage\' or \'archer\'')
+        alert('Please choose between \'warrior\', \'mage\' or \'archer\'')
     }
     console.table(player);
 
@@ -79,51 +109,63 @@ const launchGame = () => {
                 break
         }
     }
-    bossRandom(player)
+    bossRandom()
     console.table(boss)
 
     // GAME  TURN  LOOP 
-    const bossAttack = () => {
-        this.playerHealth = playerHealth - bossHit
-        console.log(`%cOh no, you've lost ${bossHit} health points`, 'color: orange;')
-        console.table(player)
-    }
-
-
     let turn = 0
     const turnLoop = () => {
 
-        while (bossHealth > 0 || playerHealth > 0) {
+        while (bossHealth > bossHealth / 5 && playerHealth >= 1) {
             // //boss riddle 
-            // if (bossHealth <= bossHealth / 5) {
-            //     riddle()
-            // }
-            //boos turn function
-            const bossTurn = () => {
-                console.log('the enemy is about to do something... \n He\'s attaking!')
-                bossAttack()
-                turn = turn + 1
+            if (bossHealth <= bossHealth / 5) {
+                const bossRiddle = () => {
+                    let riddle = prompt('How many hobbits does it take to change a lightbulb?', 'color: blue;')
+                    if (riddle === 3) {
+                        alert('The boss is defeated, you\'ve won the game')
+                    }
+                    else {
+                        alert('GAME OVER, you were crushed...')
+                    }
+                }
+                bossRiddle()
             }
+
             //player turn function
             const playerTurn = () => {
                 let playerAction = confirm('Do you want to attack ? \n (submit for yes, cancel to enter defence mode)')
                 switch (playerAction) {
                     case true:
-                        player.attack()
+                        playerAttack()
+                        console.log('the enemy still have ' + bossHealth + ' health points left')
                         break
                     case false:
-                        player.defence()
+                        playerDefence()
                         break
                 }
                 turn = turn + 1
             }
+
+            // boss turn function
+            const bossTurn = () => {
+                console.log('the enemy is about to do something... \n He\'s attaking!')
+                playerHealth = playerHealth - bossHit
+                if (playerHealth >= 1) {
+                    console.log('You still have ' + playerHealth + ' health points left')
+                } else {
+                    console.log('%cY O U    D I E D', 'color: red')
+                }
+                console.table(player)
+                turn = turn++
+            }
             bossTurn()
             playerTurn()
         }
+        alert('- - - - -__G A M E_______O V E R__- - - - - - ')
+
     }
     turnLoop()
 
 
-    console.table(player)
 }
 launchGame()
